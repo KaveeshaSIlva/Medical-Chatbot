@@ -1,0 +1,110 @@
+version: "2.0"
+
+stories:
+
+- story: ask about anusha available
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_doctor
+      entities:
+        - doctor_name: අනූෂ
+    - slot_was_set:
+      - doctor_name: අනූෂ
+    - action: utter_ask_about_doctor
+
+- story: ask about kamal available
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_doctor
+      entities:
+        - doctor_name: කමල්
+    - slot_was_set:
+      - doctor_name: කමල්
+    - action: utter_ask_about_doctor
+
+- story: ask about parking
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_location_parking
+    - action: utter_ask_about_location_parking
+
+- story: ask about pharmacy
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_location_pharmacy
+    - action: utter_ask_about_location_pharmacy
+
+- story: ask about washroom
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_location_washroom
+    - action: utter_ask_about_location_washroom
+
+- story: ask about canteen
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_location_canteen
+    - action: utter_ask_about_location_canteen
+
+- story: ask about laboratory
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_location_laboratory
+    - action: utter_ask_about_location_laboratory
+
+- story: ask about emergency
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_location_emergency
+    - action: utter_ask_about_location_emergency
+
+- story: interactive_story_1_happy_path
+  steps:
+  - intent: need_channel
+  - action: channel_form
+  - active_loop: channel_form
+  - slot_was_set:
+    - requested_slot: channel_doctor_name
+  - slot_was_set:
+    - channel_doctor_name: මානෙල්
+  - slot_was_set:
+    - channel_doctor_name: මානෙල්
+  - slot_was_set:
+    - requested_slot: channel_patient_name
+  - slot_was_set:
+    - channel_patient_name: කවීෂ
+  - slot_was_set:
+    - channel_patient_name: කවීෂ
+  - slot_was_set:
+    - requested_slot: channel_date
+  - slot_was_set:
+    - channel_date: '2021-08-02'
+  - slot_was_set:
+    - channel_date: '2021-08-02'
+  - slot_was_set:
+    - requested_slot: user_phone_number
+  - slot_was_set:
+    - user_phone_number: '0771236718'
+  - slot_was_set:
+    - user_phone_number: '0771236718'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_channel_form_success
+  - action: utter_channel_form_details
+  - action: utter_your_slot_number
+
+- story: ask about available doctors
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_available_doctors
+    - action: utter_ask_available_doctors

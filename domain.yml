@@ -1,0 +1,127 @@
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- give_channel_date
+- need_channel
+- give_doctor_details
+- give_patient_contact_number
+- give_patient_details
+- greet
+- goodbye
+- affirm
+- deny
+- reply_other_help
+- ask_doctor
+- ask_location_parking:
+    use_entities: []
+- ask_location_pharmacy:
+    use_entities: []
+- ask_location_washroom:
+    use_entities: []
+- ask_location_canteen:
+    use_entities: []
+- ask_location_laboratory:
+    use_entities: []
+- ask_location_emergency:
+    use_entities: []
+entities:
+- channel_date
+- channel_doctor_name
+- channel_patient_name
+- doctor_name
+- user_phone_number
+slots:
+  doctor_name:
+    type: categorical
+    influence_conversation: true
+    values:
+    - anusha
+    - kamal
+  channel_doctor_name:
+    type: text
+    influence_conversation: true
+  channel_patient_name:
+    type: text
+    influence_conversation: true
+  channel_date:
+    type: text
+    influence_conversation: true
+  user_phone_number:
+    type: text
+    influence_conversation: true
+  requested_slot:
+    type: text
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: ආයුබෝවන් !! ඔබව සාදරයෙන් පිළිගන්නවා.
+
+  utter_did_that_help:
+  - text: එය ඔබට උදව් උනාද?
+  utter_happy:
+  - text: හොදයි!
+  utter_goodbye:
+  - text: ස්තූතියි, ඔබට සුභ දවසක්.
+  utter_any_other_help:
+  - text: ඔබට තව සහයෝගයක් අවශ්‍යද?
+  utter_reply_other_help:
+  - text: ඔබගේ ගැටලුව විමසන්න.
+  utter_ask_about_location_parking:
+  - text: වාහන නවත්වන ස්ථානය තියෙන්නෙ ප්‍රධාන ගේට්ටුව අසල.
+  utter_ask_about_location_pharmacy:
+  - text: ඔසුසල තියෙන්නෙ පල්ලෙහාම තට්ටුවේ.
+  utter_ask_about_location_washroom:
+  - text: වැසිකිලිය තියෙන්නෙ කෙලවරේම.
+  utter_ask_about_location_canteen:
+  - text: ආපන ශාලාව තියෙන්නෙ ප්‍රධාන ශාලාව ඇතුලේ.
+  utter_ask_about_location_laboratory:
+  - text: රසායනාගාරය තියෙන්නෙ දෙවෙනි තට්ටුවේ.
+  utter_ask_about_location_emergency:
+  - text: හදිසි සේවා අංශය තියෙන්නෙ තුන්වන තට්ටුවේ.
+  utter_ask_about_doctor:
+  - condition:
+    - type: slot
+      name: doctor_name
+      value: අනූෂ
+    text: ඩොක්ටර් අනූෂ පැමිනෙන්නේ සවස 4ට
+  - condition:
+    - type: slot
+      name: doctor_name
+      value: කමල්
+    text: ඩොක්ටර් කමල් පැමිනෙන්නේ සවස 4.30ට
+  utter_ask_channel_doctor_name:
+  - text: ඔබට චැනල් කිරීමට අවශ්‍ය දොස්තර මහතා කවුද?
+  utter_ask_channel_patient_name:
+  - text: ඔබගේ නම කුමක්ද?
+  utter_ask_channel_date:
+  - text: ඔබගේ චැනල් කිරීමට අවශ්‍ය දවස කුමක්ද? (කරුණාකර "අවුරුද්ද-මාසය-දිනය" ආකරයට ඇතුලත් කරන්න.)
+  utter_ask_user_phone_number:
+  - text: ඔබගේ ජංගම දුරකථන අංකය කුමක්ද?
+  utter_channel_form_success:
+  - text: පෙර වෙන් කරගැනීම සාර්ථකයි. 
+  utter_channel_form_details:
+  - text: පෙර වෙන්කිරීමේ ක්‍රියාවලියේදී ඔබ අපට සැපයු තොරතුරු පහත පරිදි වේ. නම - වෛද්‍යවරයා -{channel_doctor_name} ඔබගේ නම - {channel_patient_name} ජංගම දුරකථන අංකය - {user_phone_number} පැමිණෙන දිනය - {channel_date}
+  utter_your_slot_number:
+  - text: ඔබගේ නොම්මරය - අංක 25
+  utter_ask_available_doctors:
+  - text: වෛද්‍ය චානක දිසානායක,  වෛද්‍ය සමන් සූරියකාන්ත මේ වෙලාවේ සිටියි.
+
+actions:
+- utter_channel_form_details
+forms:
+  channel_form:
+    required_slots:
+      channel_doctor_name:
+      - entity: channel_doctor_name
+        type: from_entity
+      channel_patient_name:
+      - entity: channel_patient_name
+        type: from_entity
+      channel_date:
+      - entity: channel_date
+        type: from_entity
+      user_phone_number:
+      - entity: user_phone_number
+        type: from_entity

@@ -1,0 +1,33 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Ask do you need any other help
+  steps:
+  - action: utter_any_other_help
+  - intent: reply_other_help
+  - action: utter_reply_other_help
+
+- rule: Activate Channel Form
+  steps:
+  - intent: need_channel
+  - action: channel_form
+  - active_loop: channel_form
+
+- rule: Submit Channel Form
+  condition:
+  - active_loop: channel_form
+  steps:
+    - action: channel_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_channel_form_success
+    - action: utter_channel_form_details
+    - action: utter_your_slot_number
+
